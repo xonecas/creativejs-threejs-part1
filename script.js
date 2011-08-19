@@ -37,12 +37,25 @@ function update() {
    renderer.render(scene, camera);
 }
 
+function randomColor () {
+   var hex  = "0123456789abcdef",
+      color = "0x",
+      key;
+
+   while (color.length !== 8) {
+      key = Math.floor(Math.random() * hex.length);
+      color += hex[key];
+   }
+
+   return color;
+}
+
 function makeParticles () {
    var particle, material;
 
    for (var zpos = 1000; zpos > -1000; zpos -= 20) {
       material = new THREE.ParticleCanvasMaterial({
-         color: 0xffffff,
+         color: randomColor(),
          program: particleRender
       });
 
@@ -61,11 +74,18 @@ function makeParticles () {
    }
 }
 
-function particleRender (context) {
-   context.beginPath();
+function particleRender (ctx) {
+   ctx.beginPath();
 
-   context.arc(0, 0, 1, 0, Math.PI * 2, true);
-   context.fill();
+   ctx.moveTo(3, 0); // 3,0 top point
+
+   ctx.lineTo(5, 6); // 5,6 bottom right point
+   ctx.lineTo(0, 2); // 0,2 top left point
+   ctx.lineTo(6, 2); // 6,2 top right point
+   ctx.lineTo(1, 6); // 1,6 bottom left point
+   ctx.lineTo(3, 0); // connect to the top point
+
+   ctx.fill();
 }
 
 function updateParticles () {
