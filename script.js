@@ -41,7 +41,7 @@ function update() {
 function makeParticles () {
    var particle, material;
 
-   for (var zpos = 1000; zpos > -1000; zpos -= 20) {
+   for (var xpos = -1000; xpos < 1000; xpos += 20) {
       material = new THREE.ParticleCanvasMaterial({
          program: particleRender
       });
@@ -50,10 +50,10 @@ function makeParticles () {
 
       particle = new THREE.Particle(material);
 
-      particle.position.x = Math.random() * 1000 - 500;
+      particle.position.z = Math.random() * 1000 - 500;
       particle.position.y = Math.random() * 1000 - 500;
 
-      particle.position.z = zpos;
+      particle.position.x = xpos;
 
       particle.scale.x = particle.scale.y = 10;
 
@@ -81,11 +81,10 @@ function updateParticles () {
    for (var i = 0; i < particles.length; i++) {
       particle = particles[i];
 
-      particle.position.z -= mouseY * 0.1;
+      particle.position.x += mouseY * 0.1;
 
-      if (particle.position.z < -1000) {
-         particle.position.z += 2000;
-         particle.position.x = (mouseX - middle) + Math.random() * (i * 10); 
+      if (particle.position.x > 1000) {
+         particle.position.x -= 2000;
       }
    }
 }
