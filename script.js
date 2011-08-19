@@ -40,7 +40,7 @@ function update() {
 function makeParticles () {
    var particle, material;
 
-   for (var zpos = -1000; zpos < 1000; zpos += 20) {
+   for (var zpos = 1000; zpos > -1000; zpos -= 20) {
       material = new THREE.ParticleCanvasMaterial({
          color: 0xffffff,
          program: particleRender
@@ -72,10 +72,10 @@ function updateParticles () {
    for (var i = 0; i < particles.length; i++) {
       particle = particles[i];
 
-      particle.position.z += mouseY * 0.1;
+      particle.position.z -= mouseY * 0.1;
 
-      if (particle.position.z > 1000) {
-         particle.position.z -= 2000;
+      if (particle.position.z < -1000) {
+         particle.position.z += 2000;
       }
    }
 }
