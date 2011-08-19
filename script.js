@@ -3,6 +3,7 @@ var camera,
    renderer,
    mouseX      = 0,
    mouseY      = 0,
+   middle      = window.innerWidth / 2,
    particles   = [];
 
 init();
@@ -96,6 +97,7 @@ function updateParticles () {
 
       if (particle.position.z < -1000) {
          particle.position.z += 2000;
+         particle.position.x = (mouseX - middle) + Math.random() * (i * 10); 
       }
    }
 }
