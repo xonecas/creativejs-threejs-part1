@@ -38,27 +38,15 @@ function update() {
    renderer.render(scene, camera);
 }
 
-function randomColor () {
-   var hex  = "0123456789abcdef",
-      color = "0x",
-      key;
-
-   while (color.length !== 8) {
-      key = Math.floor(Math.random() * hex.length);
-      color += hex[key];
-   }
-
-   return color;
-}
-
 function makeParticles () {
    var particle, material;
 
    for (var zpos = 1000; zpos > -1000; zpos -= 20) {
       material = new THREE.ParticleCanvasMaterial({
-         color: randomColor(),
          program: particleRender
       });
+      /* as sugested by Seb */
+      material.color.setHSV(Math.random(), 1, 0.5);
 
       particle = new THREE.Particle(material);
 
